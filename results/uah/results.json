@@ -1,0 +1,157 @@
+{
+  "labels": [
+    "aggressive",
+    "drowsy",
+    "normal"
+  ],
+  "confusion_matrix": [
+    [
+      2134,
+      410,
+      597
+    ],
+    [
+      456,
+      1944,
+      1558
+    ],
+    [
+      710,
+      1609,
+      2892
+    ]
+  ],
+  "classification_report": {
+    "aggressive": {
+      "precision": 0.6466666666666666,
+      "recall": 0.679401464501751,
+      "f1-score": 0.6626300263934172,
+      "support": 3141.0
+    },
+    "drowsy": {
+      "precision": 0.49053747161241484,
+      "recall": 0.49115715007579586,
+      "f1-score": 0.49084711526322433,
+      "support": 3958.0
+    },
+    "normal": {
+      "precision": 0.5730136714880126,
+      "recall": 0.5549798503166379,
+      "f1-score": 0.5638526028465588,
+      "support": 5211.0
+    },
+    "accuracy": 0.5662063363119415,
+    "macro avg": {
+      "precision": 0.570072603255698,
+      "recall": 0.5751794882980615,
+      "f1-score": 0.5724432481677334,
+      "support": 12310.0
+    },
+    "weighted avg": {
+      "precision": 0.565288509729161,
+      "recall": 0.5662063363119415,
+      "f1-score": 0.5655832419615746,
+      "support": 12310.0
+    }
+  },
+  "overall_accuracy": 0.5662063363119415,
+  "overall_macro_f1": 0.5724432481677334,
+  "fold_reports": [
+    {
+      "held_out_driver": [
+        "D4"
+      ],
+      "accuracy": 0.5965302491103203,
+      "macro_f1": 0.5871444191358766
+    },
+    {
+      "held_out_driver": [
+        "D3"
+      ],
+      "accuracy": 0.5874418604651163,
+      "macro_f1": 0.5845780881535908
+    },
+    {
+      "held_out_driver": [
+        "D5"
+      ],
+      "accuracy": 0.5647840531561462,
+      "macro_f1": 0.5399741822738177
+    },
+    {
+      "held_out_driver": [
+        "D2"
+      ],
+      "accuracy": 0.5956127801621364,
+      "macro_f1": 0.5857606408140018
+    },
+    {
+      "held_out_driver": [
+        "D1"
+      ],
+      "accuracy": 0.5219895287958115,
+      "macro_f1": 0.5374542334680648
+    },
+    {
+      "held_out_driver": [
+        "D6"
+      ],
+      "accuracy": 0.5172413793103449,
+      "macro_f1": 0.49136520895536256
+    }
+  ],
+  "feature_importances": [
+    {
+      "feature": "speed_max",
+      "importance": 0.1866700515506501
+    },
+    {
+      "feature": "speed_mean",
+      "importance": 0.16073272067849703
+    },
+    {
+      "feature": "lon_accel_std",
+      "importance": 0.1423843146933752
+    },
+    {
+      "feature": "lon_accel_absmax",
+      "importance": 0.10996309526627178
+    },
+    {
+      "feature": "lat_accel_std",
+      "importance": 0.09116278360536735
+    },
+    {
+      "feature": "jerk_std",
+      "importance": 0.08267233195870922
+    },
+    {
+      "feature": "speed_std",
+      "importance": 0.06398561788512348
+    },
+    {
+      "feature": "lat_accel_absmax",
+      "importance": 0.061746779244162275
+    },
+    {
+      "feature": "lat_accel_mean",
+      "importance": 0.0487015285957628
+    },
+    {
+      "feature": "lon_accel_mean",
+      "importance": 0.04398996370952558
+    },
+    {
+      "feature": "harsh_lat_rate",
+      "importance": 0.007372330163700136
+    },
+    {
+      "feature": "harsh_lon_rate",
+      "importance": 0.0006184826488550812
+    }
+  ],
+  "n_windows": 12310,
+  "n_trips": 40,
+  "n_drivers": 6,
+  "window_s": 5.0
+}

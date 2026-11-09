@@ -1,0 +1,66 @@
+{
+  "protocol": "trip-grouped 5-fold (GroupKFold on trip_id)",
+  "overall_accuracy": 0.5051990251827783,
+  "overall_macro_f1": 0.5144028899519447,
+  "n_windows": 12310,
+  "n_trips": 40,
+  "fold_reports": [
+    {
+      "fold": 1,
+      "n_test_trips": 8,
+      "n_test_windows": 2496,
+      "accuracy": 0.5176282051282052,
+      "macro_f1": 0.503330619200611
+    },
+    {
+      "fold": 2,
+      "n_test_trips": 8,
+      "n_test_windows": 2423,
+      "accuracy": 0.507222451506397,
+      "macro_f1": 0.4974271818572101
+    },
+    {
+      "fold": 3,
+      "n_test_trips": 8,
+      "n_test_windows": 2453,
+      "accuracy": 0.4993885038728088,
+      "macro_f1": 0.47507981793149257
+    },
+    {
+      "fold": 4,
+      "n_test_trips": 8,
+      "n_test_windows": 2449,
+      "accuracy": 0.43895467537770516,
+      "macro_f1": 0.4641902357659801
+    },
+    {
+      "fold": 5,
+      "n_test_trips": 8,
+      "n_test_windows": 2489,
+      "accuracy": 0.5616713539574126,
+      "macro_f1": 0.5457150416820835
+    }
+  ],
+  "confusion_matrix": [
+    [
+      2053,
+      474,
+      614
+    ],
+    [
+      480,
+      1592,
+      1886
+    ],
+    [
+      729,
+      1908,
+      2574
+    ]
+  ],
+  "labels": [
+    "aggressive",
+    "drowsy",
+    "normal"
+  ]
+}

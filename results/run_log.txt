@@ -1,0 +1,251 @@
+Pipeline run started 2026-08-01 23:03:02
+Repository: C:\Jeeva\Workspace\telematics-behavioral
+Python: 3.12.6
+scikit-learn 1.9.0, xgboost 3.3.0
+
+UAH-DriveSet stage
+------------------------------------------------------------------------
+  running  scripts\uah\01_build_features.py  (extract 5 s windows from 40 trips)
+      Found 40 trip folders
+      Total trips used: 40
+      Total windows: 12310
+      behavior
+      normal        5211
+      drowsy        3958
+      aggressive    3141
+      Name: count, dtype: int64
+      driver
+      D1    7
+      D2    7
+      D3    7
+      D4    7
+      D5    7
+      D6    5
+      Name: trip_id, dtype: int64
+      Saved data\processed\uah\window_features.parquet
+  ok       scripts\uah\01_build_features.py  6.2s
+  running  scripts\uah\02_eval_random_split.py  (random 5-fold, driver-dependent)
+      Driver-dependent (random split) pooled results:
+      accuracy: 0.6633631194151096 macro_f1: 0.6664577472397751
+                    precision    recall  f1-score   support
+      
+        aggressive       0.70      0.71      0.71      3141
+            drowsy       0.61      0.64      0.63      3958
+            normal       0.68      0.65      0.66      5211
+      
+          accuracy                           0.66     12310
+         macro avg       0.67      0.67      0.67     12310
+      weighted avg       0.66      0.66      0.66     12310
+      
+      [[2230  371  540]
+       [ 357 2546 1055]
+       [ 581 1240 3390]]
+  ok       scripts\uah\02_eval_random_split.py  12.1s
+  running  scripts\uah\03_eval_trip_grouped.py  (trip-grouped 5-fold)
+        fold 1:  8 trips, 2,496 windows, acc=0.518 f1=0.503
+        fold 2:  8 trips, 2,423 windows, acc=0.507 f1=0.497
+        fold 3:  8 trips, 2,453 windows, acc=0.499 f1=0.475
+        fold 4:  8 trips, 2,449 windows, acc=0.439 f1=0.464
+        fold 5:  8 trips, 2,489 windows, acc=0.562 f1=0.546
+      
+      Trip-grouped pooled: accuracy=0.5052 macro_f1=0.5144
+                    precision    recall  f1-score   support
+      
+        aggressive       0.63      0.65      0.64      3141
+            drowsy       0.40      0.40      0.40      3958
+            normal       0.51      0.49      0.50      5211
+      
+          accuracy                           0.51     12310
+         macro avg       0.51      0.52      0.51     12310
+      weighted avg       0.50      0.51      0.50     12310
+      
+      Saved results/uah/results_trip_grouped.json
+  ok       scripts\uah\03_eval_trip_grouped.py  11.7s
+  running  scripts\uah\04_eval_lodo.py  (leave-one-driver-out 6-fold)
+      Fold 0 (held out ['D4']): acc=0.597 macro_f1=0.587
+      Fold 1 (held out ['D3']): acc=0.587 macro_f1=0.585
+      Fold 2 (held out ['D5']): acc=0.565 macro_f1=0.540
+      Fold 3 (held out ['D2']): acc=0.596 macro_f1=0.586
+      Fold 4 (held out ['D1']): acc=0.522 macro_f1=0.537
+      Fold 5 (held out ['D6']): acc=0.517 macro_f1=0.491
+      
+      === Leave-One-Driver-Out pooled results ===
+      Labels order: ['aggressive', 'drowsy', 'normal']
+      Confusion matrix:
+       [[2134  410  597]
+       [ 456 1944 1558]
+       [ 710 1609 2892]]
+      Overall accuracy: 0.5662063363119415
+      Overall macro F1: 0.5724432481677334
+                    precision    recall  f1-score   support
+      
+        aggressive       0.65      0.68      0.66      3141
+            drowsy       0.49      0.49      0.49      3958
+            normal       0.57      0.55      0.56      5211
+      
+          accuracy                           0.57     12310
+         macro avg       0.57      0.58      0.57     12310
+      weighted avg       0.57      0.57      0.57     12310
+      
+      
+      Feature importances:
+        speed_max: 0.1867
+        speed_mean: 0.1607
+        lon_accel_std: 0.1424
+        lon_accel_absmax: 0.1100
+        lat_accel_std: 0.0912
+        jerk_std: 0.0827
+        speed_std: 0.0640
+        lat_accel_absmax: 0.0617
+        lat_accel_mean: 0.0487
+        lon_accel_mean: 0.0440
+        harsh_lat_rate: 0.0074
+        harsh_lon_rate: 0.0006
+      
+      Saved results.json
+  ok       scripts\uah\04_eval_lodo.py  16.0s
+  running  scripts\uah\05_baseline_comparison.py  (five model families, both protocols)
+      Majority-class baseline          | random acc=0.423 f1=0.198 | LODO acc=0.423 f1=0.198
+      Logistic Regression              | random acc=0.593 f1=0.593 | LODO acc=0.549 f1=0.544
+      Decision Tree                    | random acc=0.599 f1=0.603 | LODO acc=0.515 f1=0.519
+      Random Forest                    | random acc=0.663 f1=0.666 | LODO acc=0.566 f1=0.572
+      Gradient Boosting (XGBoost)      | random acc=0.679 f1=0.678 | LODO acc=0.565 f1=0.566
+      
+      Environment: {'python_version': '3.12.6', 'platform': 'Windows-11-10.0.26200-SP0', 'processor': 'Intel64 Family 6 Model 142 Stepping 10, GenuineIntel', 'sklearn_version': '1.9.0', 'have_xgboost': True, 'xgboost_version': '3.3.0'}
+      Saved baseline_comparison.json
+  ok       scripts\uah\05_baseline_comparison.py  53.9s
+  running  scripts\uah\06_bootstrap_intervals.py  (bootstrap confidence intervals)
+      protocol                             acc           95% CI      F1
+      ------------------------------------------------------------------
+      Random 5-fold (window level)      0.6634               --  0.6665
+      Trip-grouped 5-fold               0.5052   [0.467, 0.538]  0.5144
+      Leave-one-driver-out 6-fold       0.5662   [0.538, 0.589]  0.5724
+      
+      random -> trip-grouped : +15.8 points  (window-level leakage)
+      trip-grouped -> LODO   : +6.1 points  (driver-level effect)
+      
+      Saved results/uah/validation_protocol_comparison.json
+  ok       scripts\uah\06_bootstrap_intervals.py  4.7s
+  running  scripts\uah\07_timing_benchmark.py  (serving-path latency and throughput)
+      model trained in 6.49 s (excluded from all figures below)
+      single-window latency ms: mean=21.32  p50=20.72  p95=23.75  p99=30.17  max=79.15  sd=2.92
+        mean 95% CI [21.20, 21.46] ms over 2,000 calls
+      
+       batch   thr win/s            spread  per-batch ms  per-win ms
+           1          46             46-48         21.51     21.5079
+          32       1,345       1,303-1,351         23.79      0.7433
+         128       4,384       4,352-4,440         29.20      0.2281
+         512      12,282     11,914-12,440         41.69      0.0814
+        2048      24,268     23,500-24,477         84.39      0.0412
+        throughput is the median of 5 repeats; spread is min-max
+      
+      time to fill one batch, seconds (one window per active vehicle every 2.5s)
+       batch         10        100      1,000     10,000    100,000
+           1       0.25       0.03      <0.01      <0.01      <0.01
+          32       8.00       0.80       0.08      <0.01      <0.01
+         128      32.00       3.20       0.32       0.03      <0.01
+         512     128.00      12.80       1.28       0.13       0.01
+        2048     512.00      51.20       5.12       0.51       0.05
+      
+      vehicles needed to fill a batch within a target wait
+        <=  1.0s : B=1->2  B=32->80  B=128->320  B=512->1,280  B=2048->5,120
+        <=  0.5s : B=1->5  B=32->160  B=128->640  B=512->2,560  B=2048->10,240
+        <=  0.1s : B=1->25  B=32->800  B=128->3,200  B=512->12,800  B=2048->51,200
+      
+      Saved results/uah/latency_measured.json
+  ok       scripts\uah\07_timing_benchmark.py  124.0s
+  running  scripts\uah\08_make_figures.py  (UAH result figures)
+      Figures generated:
+        confusion_matrix.png
+        feature_importance.png
+        generalization_gap.png
+        latency_percentiles.png
+        model_comparison.png
+        throughput_scaling.png
+  ok       scripts\uah\08_make_figures.py  6.1s
+  running  scripts\uah\09_make_arch_diagram.py  (architecture diagram)
+      saved architecture diagram
+  ok       scripts\uah\09_make_arch_diagram.py  1.8s
+  running  scripts\uah\10_make_model_comparison.py  (model comparison figure)
+      Saved figures\uah/model_comparison.png
+  ok       scripts\uah\10_make_model_comparison.py  4.3s
+
+LEVIN stage
+------------------------------------------------------------------------
+  running  scripts\levin\01_inventory.py  (inventory 29 device files)
+      Inventoried 29 files
+      Rows: 7214695
+      Time span: 2017-08-30 00:00:00.000000 to 2017-12-31 23:31:04.000000
+      Wrote data\processed\levin\levin_file_inventory.csv
+      Wrote results\levin\levin_dataset_summary.json
+  ok       scripts\levin\01_inventory.py  45.0s
+  running  scripts\levin\02_build_windows.py  (decode accData into 5 s windows)
+      1.csv: rows=117275 valid_acc_rows=117275 windows=23592
+      11.csv: rows=42345 valid_acc_rows=42345 windows=8530
+      12.csv: rows=174486 valid_acc_rows=174486 windows=35008
+      13.csv: rows=160836 valid_acc_rows=160836 windows=32544
+      15.csv: rows=645835 valid_acc_rows=0 windows=0
+      16.csv: rows=234403 valid_acc_rows=0 windows=0
+      19.csv: rows=57767 valid_acc_rows=57767 windows=11635
+      2.csv: rows=106659 valid_acc_rows=106659 windows=21476
+      20.csv: rows=13245 valid_acc_rows=0 windows=0
+      22.csv: rows=160069 valid_acc_rows=0 windows=0
+      23.csv: rows=547680 valid_acc_rows=547680 windows=110237
+      24.csv: rows=40139 valid_acc_rows=0 windows=0
+      28.csv: rows=158868 valid_acc_rows=0 windows=0
+      34.csv: rows=13508 valid_acc_rows=13508 windows=2725
+      35.csv: rows=72575 valid_acc_rows=72575 windows=14563
+      36.csv: rows=11885 valid_acc_rows=11885 windows=2418
+      37.csv: rows=323610 valid_acc_rows=323610 windows=64947
+      38.csv: rows=20933 valid_acc_rows=20933 windows=4203
+      4.csv: rows=969210 valid_acc_rows=969210 windows=194939
+      43.csv: rows=483059 valid_acc_rows=483059 windows=97249
+      44.csv: rows=22381 valid_acc_rows=22381 windows=4532
+      45.csv: rows=576251 valid_acc_rows=576251 windows=116468
+      46.csv: rows=939311 valid_acc_rows=939311 windows=188871
+      47.csv: rows=87357 valid_acc_rows=87357 windows=17617
+      5.csv: rows=85248 valid_acc_rows=85248 windows=17125
+      50.csv: rows=69829 valid_acc_rows=0 windows=0
+      51.csv: rows=246753 valid_acc_rows=246753 windows=49761
+      53.csv: rows=784215 valid_acc_rows=784215 windows=157840
+      8.csv: rows=48963 valid_acc_rows=48963 windows=9879
+      Wrote data\processed\levin\levin_window_features.csv
+      Wrote results\levin\levin_pipeline_metrics.json
+      Rows read: 7214695
+      Decoded samples: 147307675
+      Windows produced: 1186159
+      Decoded from: 22 devices, 5333 trips
+      Elapsed seconds: 148.17
+      Rows/sec: 48691.56
+      Decoded samples/sec: 994171.05
+      Windows/sec: 8005.32
+  ok       scripts\levin\02_build_windows.py  149.4s
+  running  scripts\levin\03_make_figures.py  (LEVIN ingestion figures)
+      payload formats by device: 150-hex=22 12-hex=6 none=1
+      Saved figures/levin/ingestion_throughput.png
+  ok       scripts\levin\03_make_figures.py  1.8s
+
+Verifying deterministic results
+------------------------------------------------------------------------
+  ok    n_windows                    12,310
+  ok    n_trips                      40
+  ok    n_drivers                    6
+  ok    overall_accuracy             0.5662063363119415
+  ok    overall_macro_f1             0.5724432481677334
+  ok    driver_dependent_accuracy    0.6633631194151096
+  ok    driver_dependent_macro_f1    0.6664577472397751
+  ok    overall_accuracy             0.5051990251827783
+  ok    overall_macro_f1             0.5144028899519447
+  ok    total_rows_read              7,214,695
+  ok    decoded_acc_samples          147,307,675
+  ok    windows_produced             1,186,159
+  ok    devices_decoded              22
+  ok    trips_decoded                5,333
+  ok    file_count                   29
+  ok    total_trip_ids_across_files  6,553
+
+========================================================================
+Total run time: 7.3 minutes
+All deterministic results reproduced exactly.
+Timing figures are hardware-dependent and are expected to differ.
+========================================================================

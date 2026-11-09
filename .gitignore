@@ -1,0 +1,34 @@
+# Raw datasets are license-restricted and must not be committed.
+# Download them yourself; see README.md.
+data/raw/uah-driveset/*
+data/raw/levin/*
+!data/raw/uah-driveset/.gitkeep
+!data/raw/levin/.gitkeep
+
+# Derived intermediates are large and regenerable from scripts/
+data/processed/uah/*
+data/processed/levin/*
+!data/processed/uah/.gitkeep
+!data/processed/levin/.gitkeep
+
+# Manuscript drafts and working documents
+doc/
+docs/
+*.docx
+*.pdf
+
+__pycache__/
+*.pyc
+.venv/
+
+# OS and editor
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Stray archives and serialized models
+*.zip
+*.joblib
+*.pkl

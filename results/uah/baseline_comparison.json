@@ -1,0 +1,49 @@
+{
+  "results": {
+    "Majority-class baseline": {
+      "random_acc": 0.4233143785540211,
+      "random_f1": 0.19827635408937846,
+      "lodo_acc": 0.4233143785540211,
+      "lodo_f1": 0.19827635408937846
+    },
+    "Logistic Regression": {
+      "random_acc": 0.5925264012997563,
+      "random_f1": 0.592913489823068,
+      "lodo_acc": 0.5494719740048741,
+      "lodo_f1": 0.5439781245960778
+    },
+    "Decision Tree": {
+      "random_acc": 0.5992688870836718,
+      "random_f1": 0.60289901979145,
+      "lodo_acc": 0.5148659626320065,
+      "lodo_f1": 0.5185368465560426
+    },
+    "Random Forest": {
+      "random_acc": 0.6633631194151096,
+      "random_f1": 0.6664577472397751,
+      "lodo_acc": 0.5662063363119415,
+      "lodo_f1": 0.5724432481677334
+    },
+    "Gradient Boosting (XGBoost)": {
+      "random_acc": 0.6791226645004061,
+      "random_f1": 0.6780538374574144,
+      "lodo_acc": 0.5654752233956133,
+      "lodo_f1": 0.5657917886111191
+    }
+  },
+  "order": [
+    "Majority-class baseline",
+    "Logistic Regression",
+    "Decision Tree",
+    "Random Forest",
+    "Gradient Boosting (XGBoost)"
+  ],
+  "env": {
+    "python_version": "3.12.6",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 142 Stepping 10, GenuineIntel",
+    "sklearn_version": "1.9.0",
+    "have_xgboost": true,
+    "xgboost_version": "3.3.0"
+  }
+}
