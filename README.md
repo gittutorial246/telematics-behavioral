@@ -237,10 +237,7 @@ thread counts.
 Wall-clock timings in `results/uah/latency_measured.json` are hardware-dependent
 and will differ between machines and between runs on the same machine. That
 variation is not small: the same benchmark on this host returned means between
-21 and 46 ms depending on CPU power state, so the figures above were taken with
-the machine on mains power at its full sustained clock. The mean carries a
-bootstrapped 95 percent interval over the timed calls, and throughput is the
-median of five repeats with the observed spread recorded alongside it.
+21 and 46 ms depending on CPU power state, so the committed timing figures were taken with the machine on mains power at its full sustained clock. The mean carries a bootstrapped 95 percent interval over the timed calls, and throughput is the median of five repeats with the observed spread recorded alongside it.
 
 Environment used for the committed results:
 
